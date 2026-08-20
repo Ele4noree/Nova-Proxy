@@ -1,3 +1,110 @@
+# Nova Proxy 4.7.3
+
+A small security and reliability release.
+
+## Stronger subscription links
+
+- New panels bind a random per-panel identifier for their subscription, so each panel's link is unique to it.
+- Reliability fixes to setup and recovery.
+
+## Upgrade
+
+Deploy the update with the Deploy to Cloudflare button, or merge the daily **Check for Nova updates** pull request. Your users, settings, and data are preserved. See [DEPLOY.md](DEPLOY.md).
+
+---
+
+# Nova Proxy 4.7.2
+
+A follow-up to 4.7.1.
+
+## Broader client coverage for the boost
+
+- The opt-in connection-enhancement mode now also applies to the **sing-box subscription format**, so sing-box based apps get the same handshake protection that xray apps already had. Still on the user's own worker, and still off by default.
+
+## Upgrade
+
+Deploy the update with the Deploy to Cloudflare button, or merge the daily **Check for Nova updates** pull request. Your users, settings, and data are preserved. See [DEPLOY.md](DEPLOY.md).
+
+---
+
+# Nova Proxy 4.7.1
+
+A small follow-up to 4.7.0.
+
+## Get back in faster after a rebuild
+
+- Recover and update now show your panel's full address, including its unique login path, so you can open it and hand your subscription out again right away.
+
+## Better connectivity on heavily filtered networks
+
+- An opt-in connection-enhancement mode helps subscriptions keep working where common VPN handshakes are blocked. It is off by default and changes nothing for networks that already connect.
+
+## Upgrade
+
+Deploy the update with the Deploy to Cloudflare button, or merge the daily **Check for Nova updates** pull request. Your users, settings, and data are preserved. See [DEPLOY.md](DEPLOY.md).
+
+---
+
+# Nova Proxy 4.7.0
+
+Nova Proxy 4.7.0 is a rebuilt release that is simpler to run and adds several features for users on restrictive networks. The panel now ships inside the Worker, so there is no separate origin to set up. Your users, settings, and data are preserved on update.
+
+## Two front doors: Workers and Pages
+
+- The same panel can now run on a Workers address and a Pages address at the same time, sharing one database. `workers.dev` and `pages.dev` are filtered independently, so if one is blocked the other keeps working, and clients fail over automatically from a single subscription.
+
+## AmneziaWG subscriptions
+
+- Subscriptions can now include AmneziaWG, an obfuscated form of WireGuard, next to WARP and WireGuard. It is harder to detect on networks that block plain WireGuard.
+
+## Block ads and adult sites
+
+- A per-subscription toggle adds reject rules for ad and adult-content categories, applied to both sing-box and Clash outputs. Turn it on and those domains stop resolving for that user.
+
+## Works with the latest sing-box
+
+- Subscriptions use the newer sing-box 1.12 DNS format, so the latest clients import and connect without the "unknown field" error.
+
+## Install the panel as an app
+
+- The panel can be added to the home screen on iOS and Android and opens like a native app.
+
+## Backups and one-click updates
+
+- Export and restore your whole panel from the settings page, check for a new version in one click, and see a country flag on each node.
+
+## First-run setup
+
+- This build does not lock first-time setup behind a claim token: a freshly deployed panel is owned by whoever sets the admin password first. The installer bot claims your panel automatically the moment it deploys, so there is no open window. If you deploy by hand, open the panel and set your admin password immediately after the deploy finishes, before sharing the address.
+
+## Upgrade
+
+Deploy the update with the Deploy to Cloudflare button, or merge the daily **Check for Nova updates** pull request. Your users, settings, and data are preserved. See [DEPLOY.md](DEPLOY.md).
+
+---
+
+# Nova Proxy 4.6.5
+
+Nova Proxy 4.6.5 improves diagnostics and makes the panel easier to monitor.
+
+## A simple health check
+
+- New `/healthz` route (and `/install/ping`) returns only the build and version, with no database, auth, or other work. Because it depends on nothing, a 1101 there means the worker is not running at all (a Cloudflare platform or wedged-slot issue), which cleanly separates a platform problem from an application bug.
+
+## Safer, more useful error logs
+
+- Connection errors recorded for the panel's diagnostics are now stripped of anything that looks like a secret (a UUID, password, token, or a proxy/subscription link) before they are stored or logged, as a safety measure.
+- A compact, structured log line is emitted for connection failures (rate limited so it can never flood), which makes real issues easier to find in Cloudflare's logs.
+
+Everything from the 4.6.x line (the 1101 fixes and the 4.6.3/4.6.4 security fixes) is included. Connections and subscriptions are unchanged.
+
+## Upgrade
+
+Deploy the update with the Deploy to Cloudflare button, or merge the daily **Check for Nova updates** pull request. Your users, settings, and data are preserved. See [DEPLOY.md](DEPLOY.md).
+
+
+---
+
 # Nova Proxy 4.6.4
 
 Nova Proxy 4.6.4 is a small security follow-up to 4.6.3.
